@@ -2,6 +2,9 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
 .DS_Store
 *.log
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat
