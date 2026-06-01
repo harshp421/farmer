@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 // Canopy design system — Organic Biophilic, dark-tech base + amber trust accents.
 // Tokens are the single source of truth (CLAUDE.md §Design system). Do not invent
