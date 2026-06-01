@@ -16,7 +16,28 @@ import type {
   WalletResponse,
 } from './types.ts';
 
-const BASE = (import.meta.env.VITE_API_BASE as string | undefined) ?? '/api';
+// Backend base URL. In dev this defaults to `/api` (Vite proxies it to the
+// backend); in prod set VITE_API_BASE (or VITE_API_TARGET) to the backend
+// origin, e.g. https://canopy-backend.onrender.com. Normalized so a trailing
+// slash or a stray `/api` suffix doesn't produce a broken path like
+// `//auth/register`.
+function resolveBase(): string {
+  const env = import.meta.env;
+  // Prefer VITE_API_BASE; fall back to VITE_API_TARGET; default to the dev proxy.
+  let base =
+    (env.VITE_API_BASE as string | undefined)?.trim() ||
+    (env.VITE_API_TARGET as string | undefined)?.trim() ||
+    '/api';
+  base = base.replace(/\/+$/, ''); // drop trailing slash(es)
+  // For an absolute backend origin, routes live at the root — drop an accidental
+  // `/api` suffix. Never touch the dev default `/api`, which the Vite proxy needs.
+  if (/^https?:\/\//i.test(base)) {
+    base = base.replace(/\/api$/, '');
+  }
+  return base;
+}
+
+const BASE = resolveBase();
 
 const TOKEN_KEY = 'canopy.farmer.token';
 
