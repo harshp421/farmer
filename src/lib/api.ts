@@ -27,9 +27,7 @@ function resolveBase(): string {
   // NOTE: these are inlined at BUILD time — set them before `npm run build`
   // (e.g. in .env.production or the Vercel env), not at preview/runtime.
   let base =
-    (env.VITE_API_TARGET as string | undefined)?.trim() ||
-     (env.VITE_API_BASE as string | undefined)?.trim() ||
-    '/api';
+    (env.VITE_API_TARGET as string | undefined)?.trim() || "http://localhost:3000/api"
   base = base.replace(/\/+$/, ''); // drop trailing slash(es)
   // For an absolute backend origin, routes live at the root — drop an accidental
   // `/api` suffix. Never touch the dev default `/api`, which the Vite proxy needs.
