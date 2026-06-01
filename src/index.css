@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink-900 text-body font-sans antialiased;
+    /* Soft warm paper wash — faint green/amber tint on cream, never flat. */
+    background-image:
+      radial-gradient(60rem 60rem at 110% -10%, rgba(180, 83, 9, 0.05), transparent 60%),
+      radial-gradient(50rem 50rem at -10% 110%, rgba(21, 128, 61, 0.06), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading tracking-tight;
+  }
+
+  /* Visible focus rings for keyboard nav (a11y checklist). */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary/70 ring-offset-2 ring-offset-ink-900;
+  }
+}
+
+@layer utilities {
+  .card {
+    @apply rounded-2xl border border-ink-600 bg-ink-700 shadow-soft;
+  }
+
+  .field-input {
+    @apply w-full rounded-xl border border-ink-600 bg-ink-800 px-4 py-2.5 text-body
+      placeholder:text-muted/60 transition-colors duration-200
+      focus:border-primary focus:bg-ink-700;
+  }
+
+  .num {
+    @apply font-heading tabular-nums;
+  }
+}
+
+/* Respect reduced-motion preferences globally (a11y checklist). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
