@@ -24,9 +24,11 @@ import type {
 function resolveBase(): string {
   const env = import.meta.env;
   // Prefer VITE_API_BASE; fall back to VITE_API_TARGET; default to the dev proxy.
+  // NOTE: these are inlined at BUILD time — set them before `npm run build`
+  // (e.g. in .env.production or the Vercel env), not at preview/runtime.
   let base =
-    (env.VITE_API_BASE as string | undefined)?.trim() ||
     (env.VITE_API_TARGET as string | undefined)?.trim() ||
+     (env.VITE_API_BASE as string | undefined)?.trim() ||
     '/api';
   base = base.replace(/\/+$/, ''); // drop trailing slash(es)
   // For an absolute backend origin, routes live at the root — drop an accidental
